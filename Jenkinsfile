@@ -1,19 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Levantar contenedor') {
             steps {
-                echo 'Building...'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
+                // Comando para levantar el contenedor de MySQL
+                sh 'docker run --name mi-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql'
             }
         }
     }
