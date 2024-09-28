@@ -1,32 +1,25 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker:latest'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
-    }
+    agent any
     stages {
-        stage('Checkout') {
+        stage('Clone repository') {
             steps {
-                // Clonar el repositorio
-                checkout scm
+                git 'https://github.com/JorgeBilbao/probando_jenkins'
             }
         }
-        stage('Run MySQL Container') {
+        stage('Build Docker image') {
             steps {
                 script {
-                    // Levantar el contenedor MySQL dentro del agente Docker
-                    sh 'docker run --name mi-mysql -e MYSQL_ROOT_PASSWORD=root -d mysql'
+                    sh 'docker build -t mi-imagen .'
                 }
             }
         }
-        stage('Verify Container') {
+        stage('Run Docker container') {
             steps {
                 script {
-                    // Verificar que el contenedor esté corriendo
-                    sh 'docker ps | grep mi-mysql'
+                    sh 'docker run -d mi-imagen'
                 }
             }
         }
     }
 }
+
