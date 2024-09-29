@@ -3,8 +3,8 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                git 'https://github.com/JorgeBilbao/probando_jenkins'
-            } 
+                git branch: 'main', url: 'https://github.com/JorgeBilbao/probando_jenkins.git'
+            }
         }
         stage('Build Docker image') {
             steps {
