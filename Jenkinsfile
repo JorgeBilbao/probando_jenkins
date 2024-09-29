@@ -1,25 +1,21 @@
-pipeline {
+pipelin{
     agent any
-    stages {
-        stage('Clone repository') {
-            steps {
-                git branch: 'main', url: 'https://github.com/JorgeBilbao/probando_jenkins.git'
+    stages{
+        stage{ ("Build"){
+             steps{
+                echo "Etapa BUILD no disponible"
             }
         }
-        stage('Build Docker image') {
-            steps {
-                script {
-                    sh 'docker build -t mi-imagen .'
+        stage ("Test"){
+            steps{
+                echo "Etapa TEST no disponible"
                 }
             }
-        }
-        stage('Run Docker container') {
-            steps {
-                script {
-                    sh 'docker run -d mi-imagen'
-                }
+        stage ("Deploy"){
+            steps{
+                sh "docker-compose down -v"
+                sh "docker-compose up -d --build"
             }
         }
     }
 }
-
