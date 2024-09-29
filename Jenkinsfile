@@ -3,20 +3,23 @@ pipeline {
     stages {
         stage('Clone repository') {
             steps {
-                git 'https://github.com/JorgeBilbao/probando_jenkins'
+                git branch: 'main', url: 'https://github.com/JorgeBilbao/probando_jenkins.git'
             }
         }
         stage('Build Docker image') {
             steps {
-                sh 'docker build -t mi-imagen .'
+                script {
+                    sh 'docker build -t mi-imagen .'
+                }
             }
         }
         stage('Run Docker container') {
             steps {
-                sh 'docker run -d mi-imagen'
+                script {
+                    sh 'docker run -d mi-imagen'
+                }
             }
         }
     }
 }
-
 
